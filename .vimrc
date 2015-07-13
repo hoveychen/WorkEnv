@@ -20,36 +20,12 @@ Plugin 'bkad/CamelCaseMotion'
 Plugin 'kien/rainbow_parentheses.vim'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'bling/vim-airline'
-Plugin 'flazz/vim-colorschemes'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'ervandew/supertab'
+Plugin 'altercation/vim-colors-solarized'
 
 
 call vundle#end()
-
-" Glug
-source /usr/share/vim/google/google.vim
-
-Glug codefmt gofmt_executable=goimports
-Glug codefmt-google auto_all=1
-Glug gtimporter
-Glug piper plugin[mappings]
-Glug relatedfiles plugin[mappings]
-Glug youcompleteme-google
-Glug g4
-Glug ultisnips-google
-Glug google-logo
-Glug mru
-Glug outline-window
-Glug blazedeps
-Glug refactorer
-Glug syntastic-google checkers=`{'python': 'gpylint'}`
-Glug whitespace highlight autotrimeof autotrimtrailing
-Glug blaze
-Glug autogen
-Glug coverage
-Glug coverage-google
-Glug googlespell
 
 " Vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -135,11 +111,11 @@ autocmd! bufwritepost .vimrc source %
 filetype plugin indent on
 
 " Color schema
-set t_Co=256
+"set t_Co=256
 if has('gui_running')
   set background=light
 else
-  let g:solarized_termcolors=256
+  "let g:solarized_termcolors=256
   set background=dark
 endif
 colorscheme solarized
