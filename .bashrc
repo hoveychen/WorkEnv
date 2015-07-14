@@ -63,43 +63,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Colorful citc prompt
-
-CITC_PATH="/google/src/cloud/$USER"
-
-function citc_client_name () {
-  local client_name=""
-  if [[ $PWD =~ ^$CITC_PATH\/([^\/]+) ]] ; then
-    client_name=${BASH_REMATCH[1]}
-  fi
-
-  echo $client_name
-}
-
-
-function citc_rel_path () {
-  local citc_rel_path=""
-  if [[ $PWD =~ ^$CITC_PATH\/[^\/]+\/(.*) ]] ; then
-    citc_rel_path=${BASH_REMATCH[1]}
-  fi
-
-  echo $citc_rel_path
-}
-
-function citc_ps1 () {
-  local client=`citc_client_name`
-  local rel_path=`citc_rel_path`
-
-  if [[ "$client" != "" ]] ; then
-    echo "${client}:${rel_path}"
-  else
-    local cur_pwd=${PWD//$HOME/\~}
-    echo "${cur_pwd}"
-  fi
-}
-
-# end of color prompt
-
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$'
 else
@@ -107,26 +70,11 @@ else
 fi
 unset color_prompt force_color_prompt
 
-PS1="\$([[ \$? != 0 ]] && echo \"\[\033[0;31m\]\342\234\227\[\033[0;37m\]\")$(if [[ ${EUID} == 0 ]]; then echo '\[\033[0;31m\]\h'; else echo '\[\033[0;33m\]\u\[\033[0;37m\]@\[\033[0;96m\]\h'; fi)\[\033[0;37m\]:\[\033[0;33m\]\$(citc_ps1)\[\033[0;37m\]$ \[\033[0m\]"
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
 
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias g=". ~/route/g.sh"
-alias d="~/route/d.sh"
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -148,38 +96,9 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-export PATH=$PATH:/home/chenyuheng/android-sdk-linux/platform-tools
-export P4MERGE="/usr/bin/p4v -merge"
-export P4DIFF="/usr/bin/p4v -merge"
-alias crow=/google/data/ro/teams/mobile_eng_prod/crow/crow.par
-
-# Crow Completion
-source /google/data/ro/teams/mobile_eng_prod/crow/crow-complete.bash
-
-export G4HTTPPROXY=chinaproxy.corp.google.com:3128
-export HTTP_PROXY=http://chinaproxy.corp.google.com:3128/
-export http_proxy=http://chinaproxy.corp.google.com:3128/
-export PROD_HTTP_PROXY=http://chinaproxy.corp.google.com:3128/
-
-# After each command, save and reload history
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
-# Set the shortcut name for common path.
-export WWW=/google/data/rw/users/ch/chenyuheng/www
-export g_gi=indexing/moonshine/tools/crawzall
-export g_exp=experimental/users/chenyuheng
-export g_absinthe=googledata/indexing/moonshine/absinthe
-export g_doodle=googledata/html/js/egg
-export g_logos=googledata/html/logos/2014
-export g_www=../../../../../..$WWW
-export g_sol=$g_doodle/solitaire
-export g_bm=indexing/moonshine/tools/brewmaster
-export g_s=googledata/html/templates/gws/head/xjs/plugins/lrfactory/minigame/solitaire
-
 # Alias
 alias reloadbash="source ~/.bashrc"
 alias tmux="tmux -2"
-alias prodaccess="prodaccess --use_dev_instance"
 
 # Bash environment
 set -o vi
